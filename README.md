@@ -1,2 +1,2 @@
-# music_web_app
+# MUSIC WEB APP
 A music player inspired from SPOTIFY
