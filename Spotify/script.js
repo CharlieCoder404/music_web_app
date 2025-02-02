@@ -37,7 +37,7 @@ function sideBarButtons() {
   });
 }
 async function getFolders() {
-  let albums = await fetch("http://127.0.0.1:3000/songs/");
+  let albums = await fetch("http://127.0.0.1:3000/music_web_app/spotify/songs/");
   let response = await albums.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -56,7 +56,7 @@ async function updateAlbumLists() {
   for (let index = 0; index < folderList.length; index++) {
     let element = folderList[index];
     let a = await fetch(
-      `http://127.0.0.1:3000/songs/${element}/info.json`
+      `http://127.0.0.1:3000/music_web_app/spotify/songs/${element}/info.json`
     );
     let songDetails = await a.json();
     albumArea.innerHTML =
@@ -76,7 +76,7 @@ async function updateLibraryList() {
     element.addEventListener("click", async (e) => {
       currFolder = element.dataset.folder;
       let albums = await fetch(
-        `http://127.0.0.1:3000/songs/${currFolder}/`
+        `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/`
       );
       let response = await albums.text();
       let div = document.createElement("div");
@@ -93,7 +93,7 @@ async function updateLibraryList() {
       currentPlaylist = songs;
       // getting Playlist Info
       let variable = await fetch(
-        `http://127.0.0.1:3000/songs/${currFolder}/info.json`
+        `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/info.json`
       );
       let playInfo = await variable.json();
 
@@ -126,7 +126,7 @@ async function updateLibraryList() {
       }
       // upadating playbar
       if (songs.length != 0) {
-        currentSong.src = `http://127.0.0.1:3000/songs/${currFolder}/${songs[0]}`;
+        currentSong.src = `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${songs[0]}`;
         currentSong.play();
         document.getElementById("playBtn").src = "img/pause.svg";
         updateSongInfoInPlayBar();
@@ -145,7 +145,7 @@ async function updateLibraryList() {
           let t1 = element.querySelector(".songNameLibraryCard");
           let t2 = element.querySelector(".playLogoLibraryCard");
           let t3 = t2.querySelector("img");
-          currentSong.src = `http://127.0.0.1:3000/songs/${currFolder}/${decodeURI(
+          currentSong.src = `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${decodeURI(
             t1.innerHTML
           )}`;
           playPauseMusicLibrary();
@@ -167,7 +167,7 @@ function playPauseMusicLibrary() {
     if (
       !(
         currentSong.src ==
-        `http://127.0.0.1:3000/songs/${currFolder}/${decodeURI(
+        `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${decodeURI(
           t.innerHTML
         )}`
       )
@@ -264,10 +264,10 @@ function nextSong() {
   let nextButton = document.getElementById("next");
   nextButton.addEventListener("click", (e) => {
     for (let index = 0; index < currentPlaylist.length; index++) {
-      let element = `http://127.0.0.1:3000/songs/${currFolder}/${currentPlaylist[index]}`;
+      let element = `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${currentPlaylist[index]}`;
       if (element == currentSong.src) {
         if (index + 1 < currentPlaylist.length) {
-          currentSong.src = `http://127.0.0.1:3000/songs/${currFolder}/${
+          currentSong.src = `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${
             currentPlaylist[index + 1]
           }`;
           currentSong.play();
@@ -284,10 +284,10 @@ function prevSong() {
   let prevButton = document.getElementById("previous");
   prevButton.addEventListener("click", (e) => {
     for (let index = 0; index < currentPlaylist.length; index++) {
-      let element = `http://127.0.0.1:3000/songs/${currFolder}/${currentPlaylist[index]}`;
+      let element = `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${currentPlaylist[index]}`;
       if (element == currentSong.src) {
         if (index - 1 >= 0) {
-          currentSong.src = `http://127.0.0.1:3000/songs/${currFolder}/${
+          currentSong.src = `http://127.0.0.1:3000/music_web_app/spotify/songs/${currFolder}/${
             currentPlaylist[index - 1]
           }`;
           currentSong.play();
